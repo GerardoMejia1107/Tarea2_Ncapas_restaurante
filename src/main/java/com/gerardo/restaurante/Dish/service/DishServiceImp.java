@@ -2,12 +2,14 @@ package com.gerardo.restaurante.Dish.service;
 
 import com.gerardo.restaurante.Dish.dto.CreateDishRequestDTO;
 import com.gerardo.restaurante.Dish.dto.DishResponseDTO;
+import com.gerardo.restaurante.Dish.dto.FullUpdateDishRequestDTO;
 import com.gerardo.restaurante.Dish.model.DishModel;
 import com.gerardo.restaurante.Dish.repository.DishJpaRepository;
 import com.gerardo.restaurante.Dish.utils.DishMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -53,6 +55,27 @@ public class DishServiceImp implements DishService {
                 .orElseThrow(() -> new RuntimeException("Dish not found"));
 
         repository.deleteById(id);
+        return mapper.toDishResponseDTO(dish);
+    }
+
+    @Override
+    public DishResponseDTO updateById(Long id, FullUpdateDishRequestDTO dto) {
+        if (dto.getName() == null || dto.getDescription() == null || dto.getPrice() == null || dto.getCategory() == null || dto.getAvailable() == null) {
+            throw new RuntimeException("All fields are required");
+        }
+
+        DishModel dish = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Dish not found"));
+
+        dish.setName(dto.getName());
+        dish.setDescription(dto.getDescription());
+        dish.setPrice(dto.getPrice());
+        dish.setAvailable(dto.getAvailable());
+        dish.setCategory(dto.getCategory());
+        dish.setUpdatedAt(LocalDateTime.now());
+
+        repository.save(dish);
+
         return mapper.toDishResponseDTO(dish);
     }
 }

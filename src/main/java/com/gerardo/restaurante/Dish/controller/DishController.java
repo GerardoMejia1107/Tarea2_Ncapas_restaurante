@@ -2,6 +2,7 @@ package com.gerardo.restaurante.Dish.controller;
 
 import com.gerardo.restaurante.Dish.dto.CreateDishRequestDTO;
 import com.gerardo.restaurante.Dish.dto.DishResponseDTO;
+import com.gerardo.restaurante.Dish.dto.FullUpdateDishRequestDTO;
 import com.gerardo.restaurante.Dish.service.DishService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -44,8 +45,15 @@ public class DishController {
     }
 
     @DeleteMapping("/dishes/{id}/delete")
-    public ResponseEntity<DishResponseDTO> removeById(@PathVariable Long id){
+    public ResponseEntity<DishResponseDTO> removeById(@PathVariable Long id) {
         DishResponseDTO response = service.deleteById(id);
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/dishes/{id}/compleUpdate")
+    public ResponseEntity<DishResponseDTO> updateById(@PathVariable Long id,
+                                                      @RequestBody FullUpdateDishRequestDTO dto) {
+        DishResponseDTO response = service.updateById(id, dto);
         return ResponseEntity.ok(response);
     }
 }
