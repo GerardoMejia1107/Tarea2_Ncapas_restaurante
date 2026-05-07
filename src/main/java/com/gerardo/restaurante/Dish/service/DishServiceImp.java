@@ -29,4 +29,13 @@ public class DishServiceImp implements DishService {
                 .map(mapper::toDishResponseDTO)
                 .toList();
     }
+
+    @Override
+    public DishResponseDTO listById(Long id) {
+        return repository.findById(id)
+                .map(mapper::toDishResponseDTO)
+                .orElseThrow(
+                        () -> new RuntimeException("Dish not found")
+                );
+    }
 }

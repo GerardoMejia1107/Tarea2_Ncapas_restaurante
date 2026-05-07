@@ -9,4 +9,5 @@ import java.util.List;
 public interface DishService {
     DishResponseDTO create(CreateDishRequestDTO dto);
     List<DishResponseDTO> listAll();
+    DishResponseDTO listById(Long id);
 }

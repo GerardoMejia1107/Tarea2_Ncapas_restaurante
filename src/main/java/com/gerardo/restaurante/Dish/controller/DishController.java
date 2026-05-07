@@ -30,4 +30,10 @@ public class DishController {
         List<DishResponseDTO> response = service.listAll();
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/{id}/dish")
+    public ResponseEntity<DishResponseDTO> getDishById(@PathVariable Long id) {
+        DishResponseDTO response = service.listById(id);
+        return ResponseEntity.ok(response);
+    }
 }
