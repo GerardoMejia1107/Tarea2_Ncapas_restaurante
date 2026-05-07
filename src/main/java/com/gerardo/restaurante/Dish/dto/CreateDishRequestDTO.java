@@ -1,0 +1,34 @@
+package com.gerardo.restaurante.Dish.dto;
+
+import com.gerardo.restaurante.Dish.enums.Category;
+import jakarta.persistence.Column;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+import java.time.LocalDateTime;
+
+@Data
+public class CreateDishRequestDTO {
+    @NotBlank(message = "Name is required")
+    @Size(min = 5, max = 200, message = "Dish name must contain at least 5 and maximum of 200 characters")
+    private String name;
+
+    @NotBlank(message = "Description is required")
+    @Size(min = 5, max = 200, message = "Dish description must contain at least 5 and maximum of 200 characters")
+    private String description;
+
+    @NotNull(message = "Price is required")
+    @Size(min = 1, message = "Dish must have a price of at least 1")
+    private double price;
+
+    @NotNull(message = "Available status is required")
+    private Boolean available;
+
+    @NotNull(message = "Category is required")
+    private Category category;
+}
