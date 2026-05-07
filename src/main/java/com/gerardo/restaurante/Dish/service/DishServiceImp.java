@@ -38,4 +38,12 @@ public class DishServiceImp implements DishService {
                         () -> new RuntimeException("Dish not found")
                 );
     }
+
+    @Override
+    public List<DishResponseDTO> listByStatus(Boolean status) {
+        return repository.getAllByAvailableIs(status)
+                .stream()
+                .map(mapper::toDishResponseDTO)
+                .toList();
+    }
 }

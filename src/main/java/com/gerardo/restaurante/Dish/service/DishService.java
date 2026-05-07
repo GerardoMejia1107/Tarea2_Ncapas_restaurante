@@ -10,4 +10,6 @@ public interface DishService {
     DishResponseDTO create(CreateDishRequestDTO dto);
     List<DishResponseDTO> listAll();
     DishResponseDTO listById(Long id);
+    List<DishResponseDTO> listByStatus(Boolean status);
+
 }

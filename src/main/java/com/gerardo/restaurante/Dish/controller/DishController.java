@@ -36,4 +36,10 @@ public class DishController {
         DishResponseDTO response = service.listById(id);
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/dishes/available")
+    public ResponseEntity<List<DishResponseDTO>> getDishesByAvailableIs(@RequestParam Boolean status) {
+        List<DishResponseDTO> response = service.listByStatus(status);
+        return ResponseEntity.ok(response);
+    }
 }
