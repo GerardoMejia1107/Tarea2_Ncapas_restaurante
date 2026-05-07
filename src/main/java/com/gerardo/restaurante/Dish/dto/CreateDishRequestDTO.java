@@ -24,7 +24,7 @@ public class CreateDishRequestDTO {
 
     @NotNull(message = "Price is required")
     @Size(min = 1, message = "Dish must have a price of at least 1")
-    private double price;
+    private Double price;
 
     @NotNull(message = "Available status is required")
     private Boolean available;

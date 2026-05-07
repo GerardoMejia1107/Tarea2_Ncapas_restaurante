@@ -24,7 +24,7 @@ public class Dish {
     @Column(name = "description")
     private String description;
     @Column(name = "price")
-    private double price;
+    private Double price;
     @Column(name = "available")
     private Boolean available;
     @Enumerated(EnumType.STRING)
