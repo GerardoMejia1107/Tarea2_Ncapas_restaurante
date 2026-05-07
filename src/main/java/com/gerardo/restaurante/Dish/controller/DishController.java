@@ -42,4 +42,10 @@ public class DishController {
         List<DishResponseDTO> response = service.listByStatus(status);
         return ResponseEntity.ok(response);
     }
+
+    @DeleteMapping("/dishes/{id}/delete")
+    public ResponseEntity<DishResponseDTO> removeById(@PathVariable Long id){
+        DishResponseDTO response = service.deleteById(id);
+        return ResponseEntity.ok(response);
+    }
 }

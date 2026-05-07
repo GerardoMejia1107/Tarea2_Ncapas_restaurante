@@ -46,4 +46,13 @@ public class DishServiceImp implements DishService {
                 .map(mapper::toDishResponseDTO)
                 .toList();
     }
+
+    @Override
+    public DishResponseDTO deleteById(Long id) {
+        DishModel dish = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Dish not found"));
+
+        repository.deleteById(id);
+        return mapper.toDishResponseDTO(dish);
+    }
 }

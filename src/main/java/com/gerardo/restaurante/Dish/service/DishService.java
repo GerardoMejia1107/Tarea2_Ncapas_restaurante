@@ -11,5 +11,6 @@ public interface DishService {
     List<DishResponseDTO> listAll();
     DishResponseDTO listById(Long id);
     List<DishResponseDTO> listByStatus(Boolean status);
+    DishResponseDTO deleteById(Long id);
 
 }
