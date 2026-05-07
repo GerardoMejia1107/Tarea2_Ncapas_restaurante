@@ -2,10 +2,9 @@ package com.gerardo.restaurante.Dish.controller;
 
 import com.gerardo.restaurante.Dish.dto.CreateDishRequestDTO;
 import com.gerardo.restaurante.Dish.dto.DishResponseDTO;
-import com.gerardo.restaurante.Dish.dto.FullUpdateDishRequestDTO;
+import com.gerardo.restaurante.Dish.dto.UpdateDishRequestDTO;
 import com.gerardo.restaurante.Dish.service.DishService;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,7 +51,7 @@ public class DishController {
 
     @PutMapping("/dishes/{id}/compleUpdate")
     public ResponseEntity<DishResponseDTO> updateById(@PathVariable Long id,
-                                                      @RequestBody FullUpdateDishRequestDTO dto) {
+                                                      @RequestBody UpdateDishRequestDTO dto) {
         DishResponseDTO response = service.updateById(id, dto);
         return ResponseEntity.ok(response);
     }

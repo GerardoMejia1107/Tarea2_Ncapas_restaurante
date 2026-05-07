@@ -2,7 +2,7 @@ package com.gerardo.restaurante.Dish.service;
 
 import com.gerardo.restaurante.Dish.dto.CreateDishRequestDTO;
 import com.gerardo.restaurante.Dish.dto.DishResponseDTO;
-import com.gerardo.restaurante.Dish.dto.FullUpdateDishRequestDTO;
+import com.gerardo.restaurante.Dish.dto.UpdateDishRequestDTO;
 import com.gerardo.restaurante.Dish.model.DishModel;
 import com.gerardo.restaurante.Dish.repository.DishJpaRepository;
 import com.gerardo.restaurante.Dish.utils.DishMapper;
@@ -59,7 +59,7 @@ public class DishServiceImp implements DishService {
     }
 
     @Override
-    public DishResponseDTO updateById(Long id, FullUpdateDishRequestDTO dto) {
+    public DishResponseDTO updateById(Long id, UpdateDishRequestDTO dto) {
         if (dto.getName() == null || dto.getDescription() == null || dto.getPrice() == null || dto.getCategory() == null || dto.getAvailable() == null) {
             throw new RuntimeException("All fields are required");
         }
