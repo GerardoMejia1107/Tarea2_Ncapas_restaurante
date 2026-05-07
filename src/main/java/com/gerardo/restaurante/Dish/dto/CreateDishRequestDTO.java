@@ -4,6 +4,7 @@ import com.gerardo.restaurante.Dish.enums.Category;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -23,7 +24,7 @@ public class CreateDishRequestDTO {
     private String description;
 
     @NotNull(message = "Price is required")
-    @Size(min = 1, message = "Dish must have a price of at least 1")
+    @Min(value = 1, message = "Price must  be at least grater than 1")
     private Double price;
 
     @NotNull(message = "Available status is required")
