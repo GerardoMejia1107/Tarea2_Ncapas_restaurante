@@ -8,6 +8,8 @@ import com.gerardo.restaurante.Dish.utils.DishMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class DishServiceImp implements DishService {
@@ -17,6 +19,14 @@ public class DishServiceImp implements DishService {
     @Override
     public DishResponseDTO create(CreateDishRequestDTO dto) {
         DishModel newDish = repository.save(mapper.toDishModel(dto));
-        return mapper.dishResponseDTO(newDish);
+        return mapper.toDishResponseDTO(newDish);
+    }
+
+    @Override
+    public List<DishResponseDTO> listAll() {
+        return repository.findAll()
+                .stream()
+                .map(mapper::toDishResponseDTO)
+                .toList();
     }
 }

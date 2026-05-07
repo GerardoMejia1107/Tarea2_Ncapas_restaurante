@@ -29,9 +29,9 @@ public class DishModel {
     @Enumerated(EnumType.STRING)
     @Column(name = "category")
     private Category category;
-    @Column(name = "created_at", insertable = false)
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
-    @Column(name = "updated_at", insertable = false, updatable = false)
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
 }

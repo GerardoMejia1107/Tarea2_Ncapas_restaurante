@@ -18,11 +18,13 @@ public class DishMapper {
         dishModel.setPrice(dto.getPrice());
         dishModel.setAvailable(dto.getAvailable());
         dishModel.setCategory(dto.getCategory());
+        dishModel.setCreatedAt(LocalDateTime.now());
+        dishModel.setUpdatedAt(LocalDateTime.now());
 
         return dishModel;
     }
 
-    public DishResponseDTO dishResponseDTO(DishModel model) {
+    public DishResponseDTO toDishResponseDTO(DishModel model) {
         DishResponseDTO dishResponseDTO = new DishResponseDTO();
         dishResponseDTO.setName(model.getName());
         dishResponseDTO.setDescription(model.getDescription());
