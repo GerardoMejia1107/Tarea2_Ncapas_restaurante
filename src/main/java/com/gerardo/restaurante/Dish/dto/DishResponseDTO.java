@@ -6,6 +6,9 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
+/**
+ * Response DTO used to return dish information from the API.
+ */
 @Data
 public class DishResponseDTO {
     private Long id;

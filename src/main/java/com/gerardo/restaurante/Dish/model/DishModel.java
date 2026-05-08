@@ -8,6 +8,13 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+/**
+ * Entity that represents a dish stored in the database.
+ *
+ * <p>This model is mapped to the {@code dish} table and contains the
+ * persistent information of a restaurant dish, including its basic data,
+ * availability status, category, and audit timestamps.</p>
+ */
 @Entity
 @Table(name = "dish")
 @Data

@@ -13,6 +13,13 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
+/**
+ * Request DTO used to receive the data required to create a new dish.
+ *
+ * <p>This object represents the expected request body for dish creation
+ * endpoints. It includes validation constraints to ensure that the received
+ * data is valid before reaching the service layer.</p>
+ */
 @Data
 public class CreateDishRequestDTO {
     @NotBlank(message = "Name is required")
