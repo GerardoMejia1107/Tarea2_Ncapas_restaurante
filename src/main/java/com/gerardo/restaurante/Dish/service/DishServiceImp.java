@@ -3,6 +3,7 @@ package com.gerardo.restaurante.Dish.service;
 import com.gerardo.restaurante.Dish.dto.CreateDishRequestDTO;
 import com.gerardo.restaurante.Dish.dto.DishResponseDTO;
 import com.gerardo.restaurante.Dish.dto.UpdateDishRequestDTO;
+import com.gerardo.restaurante.Dish.enums.Category;
 import com.gerardo.restaurante.Dish.model.DishModel;
 import com.gerardo.restaurante.Dish.repository.DishJpaRepository;
 import com.gerardo.restaurante.Dish.utils.DishMapper;
@@ -60,6 +61,15 @@ public class DishServiceImp implements DishService {
         return repository.getAllByAvailableIs(status)
                 .stream()
                 //Map model to response dto
+                .map(mapper::toDishResponseDTO)
+                .toList();
+    }
+
+    @Override
+    public List<DishResponseDTO> listByCategory(Category category) {
+        //Return all the objects that satisfies the category
+        return repository.findByCategoryIs(category)
+                .stream()
                 .map(mapper::toDishResponseDTO)
                 .toList();
     }

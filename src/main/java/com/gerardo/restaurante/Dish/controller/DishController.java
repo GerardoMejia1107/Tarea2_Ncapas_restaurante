@@ -3,6 +3,7 @@ package com.gerardo.restaurante.Dish.controller;
 import com.gerardo.restaurante.Dish.dto.CreateDishRequestDTO;
 import com.gerardo.restaurante.Dish.dto.DishResponseDTO;
 import com.gerardo.restaurante.Dish.dto.UpdateDishRequestDTO;
+import com.gerardo.restaurante.Dish.enums.Category;
 import com.gerardo.restaurante.Dish.service.DishService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -84,6 +85,21 @@ public class DishController {
     @GetMapping("/dishes/available")
     public ResponseEntity<List<DishResponseDTO>> getDishesByAvailableIs(@RequestParam Boolean status) {
         List<DishResponseDTO> response = service.listByStatus(status);
+        return ResponseEntity.ok(response);
+    }
+
+    /**
+     * Retrieves dishes filtered by category.
+     *
+     * @param category the category used to filter dishes.
+     *                 The value must match one of the {@link Category} enum constants
+     *                 such as {@code FRUITS}, {@code VEGETABLES}, {@code GRAINS},
+     *                 {@code PROTEINS}, or {@code MILK}.
+     * @return a response entity containing the filtered list of dishes and HTTP status 200
+     */
+    @GetMapping("/dishes/category")
+    public ResponseEntity<List<DishResponseDTO>> getDishesByCategory(@RequestParam Category category) {
+        List<DishResponseDTO> response = service.listByCategory(category);
         return ResponseEntity.ok(response);
     }
 

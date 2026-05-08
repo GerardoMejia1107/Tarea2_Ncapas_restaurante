@@ -4,8 +4,10 @@ package com.gerardo.restaurante.Dish.service;
 import com.gerardo.restaurante.Dish.dto.CreateDishRequestDTO;
 import com.gerardo.restaurante.Dish.dto.DishResponseDTO;
 import com.gerardo.restaurante.Dish.dto.UpdateDishRequestDTO;
+import com.gerardo.restaurante.Dish.enums.Category;
 
 import java.util.List;
+
 /**
  * Service contract for managing dishes in the restaurant system.
  *
@@ -54,6 +56,8 @@ public interface DishService {
      */
     List<DishResponseDTO> listByStatus(Boolean status);
 
+    List<DishResponseDTO> listByCategory(Category category);
+
     /**
      * Deletes a dish by its unique identifier.
      *
@@ -65,7 +69,7 @@ public interface DishService {
     /**
      * Updates an existing dish identified by its unique identifier.
      *
-     * @param id the unique identifier of the dish to update
+     * @param id  the unique identifier of the dish to update
      * @param dto the request DTO containing the updated dish information
      * @return the response DTO representing the updated dish
      */
