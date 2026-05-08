@@ -20,4 +20,5 @@ public interface DishService {
 
     DishResponseDTO updateById(Long id, UpdateDishRequestDTO dto);
 
+    List<DishResponseDTO> createBulk(List<CreateDishRequestDTO> bulk);
 }

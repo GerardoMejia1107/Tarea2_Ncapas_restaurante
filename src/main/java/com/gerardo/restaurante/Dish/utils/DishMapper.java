@@ -26,6 +26,7 @@ public class DishMapper {
 
     public DishResponseDTO toDishResponseDTO(DishModel model) {
         DishResponseDTO dishResponseDTO = new DishResponseDTO();
+        dishResponseDTO.setId(model.getId());
         dishResponseDTO.setName(model.getName());
         dishResponseDTO.setDescription(model.getDescription());
         dishResponseDTO.setPrice(model.getPrice());

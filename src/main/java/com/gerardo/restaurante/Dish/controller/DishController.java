@@ -25,6 +25,13 @@ public class DishController {
                 .body(response);
     }
 
+    @PostMapping("/dishes/bulk")
+    public ResponseEntity<List<DishResponseDTO>> createDishBulk(@Valid @RequestBody List<CreateDishRequestDTO> list) {
+        List<DishResponseDTO> response = service.createBulk(list);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(response);
+    }
+
     @GetMapping("/dishes")
     public ResponseEntity<List<DishResponseDTO>> getDishes() {
         List<DishResponseDTO> response = service.listAll();

@@ -78,4 +78,16 @@ public class DishServiceImp implements DishService {
 
         return mapper.toDishResponseDTO(dish);
     }
+
+    @Override
+    public List<DishResponseDTO> createBulk(List<CreateDishRequestDTO> bulk) {
+        List<DishModel> data = repository.saveAll(bulk.stream()
+                .map(mapper::toDishModel)
+                .toList());
+
+        return data.stream()
+                .map(mapper::toDishResponseDTO)
+                .toList();
+
+    }
 }
