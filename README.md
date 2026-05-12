@@ -1,4 +1,152 @@
-## Creación Base de Datos
+# API RESTful Básica - Restaurante (Spring Boot)
+
+## 1. Descripción general
+Este proyecto implementa una API RESTful básica en **Spring Boot** para la gestión de platillos (`dish`) de un restaurante.
+
+La API permite:
+- Crear un platillo.
+- Crear múltiples platillos en lote.
+- Listar todos los platillos.
+- Buscar un platillo por ID.
+- Filtrar platillos por disponibilidad.
+- Filtrar platillos por categoría.
+- Actualizar un platillo.
+- Eliminar un platillo.
+
+## 2. Stack técnico
+- **Java 21**
+- **Spring Boot 4.0.6**
+- **Spring Web MVC**
+- **Spring Data JPA**
+- **Jakarta Validation**
+- **PostgreSQL**
+- **Lombok**
+- **Maven Wrapper (`./mvnw`)**
+
+## 3. Arquitectura (N-Capas)
+El proyecto sigue una estructura por capas:
+
+- **Controller** (`DishController`): expone los endpoints HTTP.
+- **Service** (`DishService`, `DishServiceImp`): contiene lógica de negocio.
+- **Repository** (`DishJpaRepository`): acceso a datos con Spring Data JPA.
+- **Model** (`DishModel`): entidad persistente de base de datos.
+- **DTOs** (`CreateDishRequestDTO`, `UpdateDishRequestDTO`, `DishResponseDTO`): contratos de entrada/salida.
+- **Utils** (`DishMapper`, `CategoryConverter`): mapeo y conversiones auxiliares.
+
+## 4. Configuración
+La configuración principal está en:
+
+`src/main/resources/application.yaml`
+
+Variables de entorno requeridas:
+- `DB_URL`
+- `DB_USERNAME`
+- `DB_PASSWORD`
+
+Ejemplo de valores:
+- `DB_URL=jdbc:postgresql://localhost:5432/dishes`
+- `DB_USERNAME=postgres`
+- `DB_PASSWORD=tu_password`
+
+## 5. Modelo de datos
+Entidad principal: **DishModel**
+
+Campos:
+- `id: Long`
+- `name: String`
+- `description: String`
+- `price: Double`
+- `available: Boolean`
+- `category: Category`
+- `createdAt: LocalDateTime`
+- `updatedAt: LocalDateTime`
+
+Categorías válidas (`Category`):
+- `FRUITS`
+- `VEGETABLES`
+- `GRAINS`
+- `PROTEINS`
+- `MILK`
+
+## 6. Validaciones de entrada
+En `CreateDishRequestDTO` (y heredadas por `UpdateDishRequestDTO`):
+- `name`: obligatorio, entre 5 y 200 caracteres.
+- `description`: obligatorio, entre 5 y 200 caracteres.
+- `price`: obligatorio, mínimo 1.
+- `available`: obligatorio.
+- `category`: obligatoria.
+
+## 7. Endpoints de la API
+Base path del controlador: `/api`
+
+### 7.1 Crear un platillo
+- **Método:** `POST`
+- **URL:** `/api/dishes`
+- **Body (JSON):**
+```json
+{
+  "name": "Arroz con pollo",
+  "description": "Plato tradicional con arroz y pollo",
+  "price": 12.5,
+  "available": true,
+  "category": "PROTEINS"
+}
+```
+- **Respuesta:** `201 Created` + `DishResponseDTO`
+
+### 7.2 Crear platillos en lote
+- **Método:** `POST`
+- **URL:** `/api/dishes/bulk`
+- **Body (JSON):** lista de objetos `CreateDishRequestDTO`
+- **Respuesta:** `201 Created` + lista de `DishResponseDTO`
+
+### 7.3 Listar todos los platillos
+- **Método:** `GET`
+- **URL:** `/api/dishes`
+- **Respuesta:** `200 OK` + lista de `DishResponseDTO`
+
+### 7.4 Obtener platillo por ID
+- **Método:** `GET`
+- **URL:** `/api/{id}/dish`
+- **Respuesta:** `200 OK` + `DishResponseDTO`
+
+### 7.5 Filtrar por disponibilidad
+- **Método:** `GET`
+- **URL:** `/api/dishes/available?status=true`
+- **Parámetro:** `status` (`true` o `false`)
+- **Respuesta:** `200 OK` + lista de `DishResponseDTO`
+
+### 7.6 Filtrar por categoría
+- **Método:** `GET`
+- **URL:** `/api/dishes/category?category=PROTEINS`
+- **Parámetro:** `category` (enum `Category`)
+- **Respuesta:** `200 OK` + lista de `DishResponseDTO`
+
+### 7.7 Actualización completa de platillo
+- **Método:** `PUT`
+- **URL:** `/api/dishes/{id}/compleUpdate`
+- **Body (JSON):** `UpdateDishRequestDTO` (todos los campos)
+- **Respuesta:** `200 OK` + `DishResponseDTO`
+
+### 7.8 Eliminar platillo
+- **Método:** `DELETE`
+- **URL:** `/api/dishes/{id}/delete`
+- **Respuesta:** `200 OK` + `DishResponseDTO` eliminado
+
+## 8. Manejo básico de errores
+Actualmente la capa de servicio lanza `RuntimeException` en casos como:
+- `Dish not found`
+- `All fields are required`
+
+## 9. Ejecución del proyecto
+1. Configurar variables de entorno (`DB_URL`, `DB_USERNAME`, `DB_PASSWORD`).
+2. Asegurar que PostgreSQL esté disponible.
+3. Ejecutar:
+```bash
+./mvnw spring-boot:run
+```
+
+## 10. Creación de base de datos
 ```sql
 -- Database: dishes
 
@@ -14,10 +162,9 @@ CREATE DATABASE dishes
     TABLESPACE = pg_default
     CONNECTION LIMIT = -1
     IS_TEMPLATE = False;
-
 ```
 
-## Creación de tabla en SQL
+## 11. Creación de tabla SQL
 ```sql
 -- Table: public.dish
 
@@ -41,7 +188,4 @@ TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.dish
     OWNER to postgres;
-
 ```
-
-
